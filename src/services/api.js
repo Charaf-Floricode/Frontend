@@ -34,6 +34,12 @@ export async function bioCertificate() {
   const res = await fetch(`${API_BASE}biocertificate/scraper`, {
     method: 'POST'
   });
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || `HTTP ${res.status}`);
+  }
+
+  // ---- NEW: return both blob and headers
+  const blob = await res.blob();
+  return { blob, headers: res.headers };
 }
