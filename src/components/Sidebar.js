@@ -83,14 +83,13 @@ export default function Sidebar({ isOpen }) {
                   </AnimatePresence>
                 </li>
      
-
                 {/* Bedrijf en Locaties */}
                 <li className="submenu-item">
                   <div
                     className={`dropdown-header ${open.bedrijf ? 'open' : ''}`}
                     onClick={() => toggle('bedrijf')}
-                  >
-                    Bedrijf en Locaties
+                  >          
+                    Bedrijf en Locaties                   
                     {open.bedrijf ? <FaChevronDown/> : <FaChevronRight/>}
                   </div>
                   <AnimatePresence initial={false}>
@@ -103,7 +102,7 @@ export default function Sidebar({ isOpen }) {
                         transition={{ duration: 0.25 }}
                       >
                         <li className="submenu-item">
-                          <NavLink to="/royal-flora-holland" className={({ isActive }) => isActive ? 'active submenu-link' : 'submenu-link'}>
+                          <NavLink to="/bedrijflocatie" className={({ isActive }) => isActive ? 'active submenu-link' : 'submenu-link'}>
                             RoyalFloraHolland
                           </NavLink>
                         </li>

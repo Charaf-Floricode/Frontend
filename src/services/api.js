@@ -2,7 +2,7 @@
 
 
 // Base URL comes from your environment or defaults to root
-export const API_BASE = process.env.REACT_APP_API_BASE || '/v1/';
+export const API_BASE = process.env.REACT_APP_API_BASE || '/';
 
 
 // Health check
@@ -42,4 +42,13 @@ export async function bioCertificate() {
   // ---- NEW: return both blob and headers
   const blob = await res.blob();
   return { blob, headers: res.headers };
+}
+
+export async function downloadCoderingen() {
+  const res = await fetch(
+    `${API_BASE}bedrijflocatie/rfh`,
+    { method: "POST" }
+  );
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.blob();         // zip als blob
 }

@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(container);   // createRoot, not render
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <App/>
     </BrowserRouter>
   </React.StrictMode>
 );

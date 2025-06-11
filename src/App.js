@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import GpcAutomation from './pages/GpcAutomation';
 import Biocertificate from './pages/Biocertificate';
+import RoyalFloraHolland from './pages/RFH';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/gpc-automatisering" element={<GpcAutomation />} />
             <Route path="/biocertificaat" element={<Biocertificate />} />
+            <Route path="/bedrijflocatie" element={<RoyalFloraHolland/>} />
             {/* …other routes */}
           </Routes>
         </main>
