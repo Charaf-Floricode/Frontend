@@ -1,6 +1,11 @@
+import React, { useState } from "react";
+import "./Card.css";
 import { downloadCoderingen } from "../../services/api";
 
 export default function BedrijfLocatie() {
+const [message, setMessage] = useState(null);
+const [debug,   setDebug]   = useState([]);
+const [loading, setLoading] = useState(false);
   const handleClick = async () => {
     try {
       const blob = await downloadCoderingen();
@@ -17,5 +22,16 @@ export default function BedrijfLocatie() {
     }
   };
 
-  return <button onClick={handleClick}>Download coderingen</button>;
+    return (
+    <div className="card">
+      <h2>Download RFH codering</h2>
+      <button onClick={handleClick} disabled={loading}>
+        {loading ? "Extracting…" : "Extract Data"}
+      </button>
+      {message && <p>{message}</p>}
+      {debug.length > 0 && (
+        <ul>{debug.map((step, i) => <li key={i}>{step}</li>)}</ul>
+      )}
+    </div>
+  );
 }
