@@ -52,13 +52,18 @@ export async function downloadCoderingen() {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.blob();         // zip als blob
 }
-export async function plantion() {
-  const res = await fetch(
-    `${API_BASE}bedrijflocatie/plantion`,
-    { method: "POST" }
-  );
+export async function runPlantion() {
+  const res = await fetch(`${API_BASE}bedrijflocatie/plantion`, {
+    method: "POST",
+  });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.blob();         // zip als blob
+  return res.json();
+}
+
+export async function downloadPlantion() {
+  const res = await fetch(`${API_BASE}bedrijflocatie/plantion/download`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.blob();          // Excel-blob
 }
 
 // src/services/api.js

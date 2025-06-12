@@ -1,36 +1,58 @@
 import React, { useState } from "react";
 import "./Card.css";
-import { plantion } from "../../services/api";
+import { runPlantion, downloadPlantion } from "../../services/api";
 
 export default function Plantion() {
-const [message, setMessage] = useState(null);
-const [debug,   setDebug]   = useState([]);
-const [loading, setLoading] = useState(false);
-  const handleClick = async () => {
+  const [removed, setRemoved] = useState([]);
+  const [msg,     setMsg]     = useState("");
+  const [loading, setLoad]    = useState(false);
+
+  const handleGenerate = async () => {
+    setLoad(true);
     try {
-      const blob = await plantion();
+      const { removed, count_removed } = await runPlantion();
+      setRemoved(removed);
+      setMsg(`Verwijderd: ${count_removed} nummer(s)`);
+    } catch (e) {
+      setMsg("Fout: " + e.message);
+    } finally {
+      setLoad(false);
+    }
+  };
+
+  const handleDownload = async () => {
+    try {
+      const blob = await downloadPlantion();
       const url  = URL.createObjectURL(blob);
       const a    = document.createElement("a");
-      a.href = url;
-      a.download = "Plantion.xls";
-      document.body.appendChild(a);
+      a.href      = url;
+      a.download  = "Plantion.xlsx";
       a.click();
-      a.remove();
       URL.revokeObjectURL(url);
     } catch (e) {
       alert("Download mislukt: " + e.message);
     }
   };
 
-    return (
+  return (
     <div className="card">
-      <h2>Download Plantion codering</h2>
-      <button onClick={handleClick} disabled={loading}>
-        {loading ? "Extracting…" : "Extract Data"}
+      <h2>Plantion GLN-rapport</h2>
+
+      <button onClick={handleGenerate} disabled={loading}>
+        {loading ? "Bezig…" : "Genereer lijst"}
       </button>
-      {message && <p>{message}</p>}
-      {debug.length > 0 && (
-        <ul>{debug.map((step, i) => <li key={i}>{step}</li>)}</ul>
+
+      {msg && <p>{msg}</p>}
+
+      {removed.length > 0 && (
+        <>
+          <button onClick={handleDownload}>Download Excel</button>
+
+          <h4>Verwijderde Plantion-nummers</h4>
+          <ul className="list-disc pl-5 max-h-40 overflow-auto space-y-1">
+            {removed.map(nr => <li key={nr}>{nr}</li>)}
+          </ul>
+        </>
       )}
     </div>
   );
