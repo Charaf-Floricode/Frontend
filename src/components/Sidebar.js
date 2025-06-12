@@ -115,6 +115,7 @@ export default function Sidebar({ isOpen }) {
                     )}
                   </AnimatePresence>
                 </li>
+                
               </motion.ul>
             )}
           </AnimatePresence>
@@ -141,6 +142,11 @@ export default function Sidebar({ isOpen }) {
                 <li className="submenu-item">
                   <NavLink to="/wendela" className={({ isActive }) => isActive ? 'active submenu-link' : 'submenu-link'}>
                     Wendela
+                  </NavLink>
+                </li>
+                <li className="submenu-item">
+                  <NavLink to="/omzet" className={({ isActive }) => isActive ? 'active submenu-link' : 'submenu-link'}>
+                    Omzet
                   </NavLink>
                 </li>
               </motion.ul>

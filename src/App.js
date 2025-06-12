@@ -9,6 +9,7 @@ import GpcAutomation from './pages/GpcAutomation';
 import Biocertificate from './pages/Biocertificate';
 import RoyalFloraHolland from './pages/RFH';
 import PlantionCode from './pages/Plantion';
+import OmzetDashboard from './pages/OmzetDashboard';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -28,6 +29,7 @@ function App() {
             <Route path="/biocertificaat" element={<Biocertificate />} />
             <Route path="/bedrijflocatie" element={<RoyalFloraHolland/>} />
             <Route path="/plantion" element={<PlantionCode/>} />
+            <Route path="/omzet" element={<OmzetDashboard/>} />
             {/* …other routes */}
           </Routes>
         </main>

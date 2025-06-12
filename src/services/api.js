@@ -61,3 +61,12 @@ export async function plantion() {
   return res.blob();         // zip als blob
 }
 
+// src/services/api.js
+export async function fetchOmzetData() {
+    const res = await fetch(
+    `${API_BASE}omzet/data`
+    
+  );
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
