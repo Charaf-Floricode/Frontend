@@ -106,6 +106,11 @@ export default function Sidebar({ isOpen }) {
                             RoyalFloraHolland
                           </NavLink>
                         </li>
+                        <li className="submenu-item">
+                          <NavLink to="/plantion" className={({ isActive }) => isActive ? 'active submenu-link' : 'submenu-link'}>
+                            Plantion
+                          </NavLink>
+                        </li>
                       </motion.ul>
                     )}
                   </AnimatePresence>

@@ -52,3 +52,12 @@ export async function downloadCoderingen() {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.blob();         // zip als blob
 }
+export async function plantion() {
+  const res = await fetch(
+    `${API_BASE}bedrijflocatie/plantion`,
+    { method: "POST" }
+  );
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.blob();         // zip als blob
+}
+
