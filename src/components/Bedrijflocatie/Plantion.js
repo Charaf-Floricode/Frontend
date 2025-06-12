@@ -26,7 +26,7 @@ export default function Plantion() {
       const url  = URL.createObjectURL(blob);
       const a    = document.createElement("a");
       a.href      = url;
-      a.download  = "Plantion.xlsx";
+      a.download  = "Plantion.xls";
       a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
