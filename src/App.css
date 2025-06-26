@@ -1,28 +1,53 @@
-.app-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+:root {
+  --sidebar-w: 260px;               /* één plek om de breedte te wijzigen */
 }
 
-.content-area {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;                /* top:0; left:0; height:100vh */
+  width: var(--sidebar-w);
+  background: #fff;
+  transform: translateX(-100%);     /* standaard buiten beeld */
+  transition: transform .25s ease;
+  z-index: 30;                      /* boven de main-content */
+           /* niets aanklikbaar als dicht */
 }
-/* Shift main-content when sidebar is closed */
-.content-area {
-  display: flex;
-  height: calc(100vh - 64px); /* header is 64px high */
+.sidebar.open {
+  transform: translateX(0);
+  pointer-events: auto;             /* weer aanklikbaar */
 }
-.sidebar.closed {
-  transform: translateX(-240px);
+
+/* ---------- Header ---------- */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background:#fff;
+  z-index: 50;                      /* boven sidebar */
+  display:flex; align-items:center;
+  padding:0 1rem;
+  box-shadow:0 1px 4px rgb(0 0 0 / .06);
 }
+
+/* ---------- Main-content ---------- */
 .main-content {
   flex: 1;
-  transition: margin-left 0.3s ease;
-  margin-left: 240px;
   overflow-y: auto;
+  padding-top: 80px;                /* ruimte voor header */
+  transition: margin-left .25s ease;
+  margin-left: 2rem; 
+  margin-top: 2rem;                  /* standaard GEEN offset */
 }
-.sidebar.closed + .main-content {
-  margin-left: 0;
+
+/* wanneer body de class sidebar-open krijgt → ruimte maken */
+body.sidebar-open .main-content {
+  margin-left: var(--sidebar-w);
+}
+
+/* (optioneel) op kleine schermen laat je de content op 0 */
+@media (max-width: 768px) {
+  body.sidebar-open .main-content {
+    margin-left: 0;
+  }
 }

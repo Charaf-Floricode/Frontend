@@ -6,4 +6,48 @@
   .home-page h2 {
     margin-top: 0;
   }
-  
+ /* Buitenste wrapper – centreert alles op de pagina */
+.home-wrapper {
+  width: 100%;
+  height: calc(100vh - 64px);   /* -64px als je een header hebt; pas aan zo nodig */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;      /* verticaal centreren */
+  align-items: center;          /* horizontaal centreren */
+  padding: 1.5rem;
+}
+
+/* Welkomstblok */
+.home-page {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Grid voor de sector-tegels */
+.grid-2col {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  max-width: 500px;             /* zodat het mooi compact blijft */
+  width: 100%;
+}
+
+/* Basisstijl voor één tegel */
+.link-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;                 /* ≈ 128 px */
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 1rem;
+  transition: transform 0.15s;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 0.15);
+}
+.link-box:hover { transform: scale(1.05); }
+
+.bg-groen  { background: #33d86f; }   /* green-600 */
+.bg-oranje { background: #fc9e51; }   /* orange-400 */
+.bg-rood   { background: #e64f4f; }  

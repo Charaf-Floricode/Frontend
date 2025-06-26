@@ -5,6 +5,7 @@ import {
   XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, Legend,
 } from "recharts";
 import { fetchOmzetData } from "../services/api";
+import "./OmzetDashboard.css"
 import { FLORICODE_BASE, FLORICODE_TINTS } from "../styles/colors";
 
 export default function OmzetDashboard() {
@@ -37,6 +38,8 @@ export default function OmzetDashboard() {
   // const boxData = Object.entries(d.boxplot) …
 
   return (
+    <div className="chart-shell">
+    <div className="chart-inner">
     <section className="grid gap-8 md:grid-cols-2">
       {/* 1️⃣ Landen */}
       <ChartCard title="Abonnementen per land">
@@ -78,6 +81,8 @@ export default function OmzetDashboard() {
       {/* 6️⃣ Boxplot – implementeer zelf of met een library */}
       {/* <ChartCard title="Prijsverdeling per dienst (≥15)">…</ChartCard> */}
     </section>
+    </div>
+    </div>
   );
 }
 

@@ -1,0 +1,14 @@
+.chart-shell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 4.5rem;
+  color: #ffa1af;
+}
+
+.chart-inner {
+  width: 80%;          /* centreren + ruimte links/rechts */
+  max-width: 1100px;
+  margin-right: 10%;
+  color: #ff6c88;
+}

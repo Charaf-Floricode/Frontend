@@ -1,10 +1,20 @@
 // src/services/api.js
-
-
+import axios from "axios";
+import { getToken } from "./Auth";
 // Base URL comes from your environment or defaults to root
 export const API_BASE = process.env.REACT_APP_API_BASE || '/';
 
+export function authFetch(path, options = {}) {
+  const token = getToken();                   // JWT uit storage
 
+  // Combineer headers netjes: bestaande + Authorization (indien token)
+  const headers = {
+    ...(options.headers || {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+
+  return fetch(`${API_BASE}${path}`, { ...options, headers });
+}
 // Health check
 export async function fetchHealth() {
   const res = await fetch(`${API_BASE}health`);
@@ -65,13 +75,28 @@ export async function downloadPlantion() {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.blob();          // Excel-blob
 }
-
-// src/services/api.js
+export async function downloadEdibulb() {
+  const res = await fetch(`${API_BASE}bedrijflocatie/edibulb`,{
+    method: "POST",
+});
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.blob();          // Excel-blob
+}
 export async function fetchOmzetData() {
-    const res = await fetch(
-    `${API_BASE}omzet/data`
-    
-  );
+  const res = await authFetch("omzet/data");        // ← authFetch!
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
+
+// ---------- AUTH ENDPOINTS ----------
+export async function loginJwt({ username, password }) {
+  const res = await fetch(`${API_BASE}auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  const { access_token } = await res.json();
+  return access_token;
+}
+

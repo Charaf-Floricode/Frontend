@@ -6,6 +6,7 @@
     overflow-y: auto;
     transform: translateX(0);
     transition: transform 0.3s ease;
+    margin-top: 5.5rem;
   }
   .sidebar.closed {
     transform: translateX(-240px);

@@ -9,32 +9,43 @@ import GpcAutomation from './pages/GpcAutomation';
 import Biocertificate from './pages/Biocertificate';
 import RoyalFloraHolland from './pages/RFH';
 import PlantionCode from './pages/Plantion';
+import EdiBulbCodering from './pages/Edibulb'
 import OmzetDashboard from './pages/OmzetDashboard';
-
+import { AuthProvider } from "./Authentication/AuthContext";
+import RequireAuth      from "./Authentication/RequireAuth";
+import Login from "./pages/Login"
+import FinancienPage from "./pages/Financien";
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="app-layout">
+    <AuthProvider>
+      <div className="app-layout">
       <Header
         isOpen={sidebarOpen}
         onBurgerClick={() => setSidebarOpen(o => !o)}
       />
-      <div className="content-area">
-        <Sidebar isOpen={sidebarOpen} />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/gpc-automatisering" element={<GpcAutomation />} />
-            <Route path="/biocertificaat" element={<Biocertificate />} />
-            <Route path="/bedrijflocatie" element={<RoyalFloraHolland/>} />
-            <Route path="/plantion" element={<PlantionCode/>} />
-            <Route path="/omzet" element={<OmzetDashboard/>} />
-            {/* …other routes */}
-          </Routes>
-        </main>
+        <div className="content-area">
+          <Sidebar isOpen={sidebarOpen} />
+          <main className="main-content">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+
+              {/* everything BELOW is protected */}
+              <Route element={<RequireAuth> <Home /> </RequireAuth>} path="/" />
+              <Route element={<RequireAuth> <GpcAutomation /> </RequireAuth>}      path="/gpc-automatisering" />
+              <Route element={<RequireAuth> <Biocertificate /> </RequireAuth>}      path="/biocertificaat" />
+              <Route element={<RequireAuth> <RoyalFloraHolland/> </RequireAuth>}    path="/bedrijflocatie" />
+              <Route element={<RequireAuth> <PlantionCode/> </RequireAuth>}         path="/plantion" />
+              <Route element={<RequireAuth> <OmzetDashboard/> </RequireAuth>}       path="/omzet" />
+               <Route element={<RequireAuth> <FinancienPage/> </RequireAuth>} path="/financien" />
+               <Route element={<RequireAuth> <EdiBulbCodering/> </RequireAuth>} path="/edibulb" />
+               
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 }
 

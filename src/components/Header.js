@@ -3,9 +3,11 @@ import React from 'react';
 
 import { FaBars } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import {useAuth} from "../Authentication/AuthContext"
 import './Header.css';
 
 export default function Header({ isOpen, onBurgerClick }) {
+  const { logout } = useAuth();
   return (
     <header className="header">
 
@@ -25,6 +27,11 @@ export default function Header({ isOpen, onBurgerClick }) {
 
       <img src="/logo.png" alt="Floricode" className="header-logo" />
       <h1>Floricode Dashboard</h1>
+
+      <motion.button
+      onClick={logout} className="logout-btn ml-auto">
+        Log&nbsp;uit
+      </motion.button>
     </header>
   );
 }

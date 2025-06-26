@@ -111,6 +111,11 @@ export default function Sidebar({ isOpen }) {
                             Plantion
                           </NavLink>
                         </li>
+                          <li className="submenu-item">
+                          <NavLink to="/edibulb" className={({ isActive }) => isActive ? 'active submenu-link' : 'submenu-link'}>
+                            EdiBulb
+                          </NavLink>
+                        </li>
                       </motion.ul>
                     )}
                   </AnimatePresence>
