@@ -11,6 +11,7 @@ export default function Sidebar({ isOpen }) {
     bedrijf: false,
     financiele: false,
     productgroep: false,
+    intern: false
   });
   const toggle = key => setOpen(o => ({ ...o, [key]: !o[key] }));
 
@@ -121,6 +122,34 @@ export default function Sidebar({ isOpen }) {
                   </AnimatePresence>
                 </li>
                 
+              </motion.ul>
+            )}
+          </AnimatePresence>
+        </li>
+                {/* Interne administratie */}
+        <li className="menu-item">
+          <div
+            className={`dropdown-header ${open.intern ? 'open' : ''}`}
+            onClick={() => toggle('financiele')}
+          >
+            Interne administratie
+            {open.financiele ? <FaChevronDown/> : <FaChevronRight/>}
+          </div>
+          <AnimatePresence initial={false}>
+            {open.financiele && (
+              <motion.ul
+                className="dropdown-list"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+              >
+
+                <li className="submenu-item">
+                  <NavLink to="/intern" className={({ isActive }) => isActive ? 'active submenu-link' : 'submenu-link'}>
+                    Uren
+                  </NavLink>
+                </li>
               </motion.ul>
             )}
           </AnimatePresence>

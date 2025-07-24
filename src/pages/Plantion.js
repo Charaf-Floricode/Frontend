@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Plantion.css'
 
 import Plantion from'../components/Bedrijflocatie/Plantion'
 

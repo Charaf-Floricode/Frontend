@@ -15,6 +15,7 @@ import { AuthProvider } from "./Authentication/AuthContext";
 import RequireAuth      from "./Authentication/RequireAuth";
 import Login from "./pages/Login"
 import FinancienPage from "./pages/Financien";
+import InternPage from "./pages/Tijdschrijven/Intern";
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -40,6 +41,7 @@ function App() {
               <Route element={<RequireAuth> <OmzetDashboard/> </RequireAuth>}       path="/omzet" />
                <Route element={<RequireAuth> <FinancienPage/> </RequireAuth>} path="/financien" />
                <Route element={<RequireAuth> <EdiBulbCodering/> </RequireAuth>} path="/edibulb" />
+               <Route element={<RequireAuth> <InternPage/> </RequireAuth>} path="/intern" />
                
             </Routes>
           </main>

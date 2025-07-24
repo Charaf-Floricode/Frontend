@@ -100,3 +100,8 @@ export async function loginJwt({ username, password }) {
   return access_token;
 }
 
+export async function fetchInternStatus() {
+  const res = await authFetch("intern/status");
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();           // { color, per_task, tasks }
+}

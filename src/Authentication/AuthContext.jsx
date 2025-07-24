@@ -1,28 +1,23 @@
-// src/Authentication/AuthContext.js
 import React, { createContext, useContext, useState } from "react";
 import { saveToken, clearToken, getToken } from "../services/Auth";
-import { jwtDecode } from "jwt-decode";              // <– named import v4.x+
+import { jwtDecode } from "jwt-decode";
 
 /* ------------------------------------------------------------------ */
-/* Context boilerplate – uitgebreid met 'role'                        */
+/* Context boilerplate                                                */
 /* ------------------------------------------------------------------ */
 const AuthCtx = createContext({
-  token: null,
-  role:  null,       // NIEUW
+  auth:   null,    // { token, role }  of null
   setToken: () => {},
   logout : () => {},
 });
 
-/* ------------------------------------------------------------------ */
-/* Helper – haal role uit JWT (null bij ontbreken/fout)               */
-/* ------------------------------------------------------------------ */
+/* Helper: haal role uit JWT ---------------------------------------- */
 const extractRole = (token) => {
   if (!token) return null;
   try {
-    const { role } = jwtDecode(token);
-    return role ?? null;
+    return jwtDecode(token).role ?? null;
   } catch {
-    return null;     // ongeldig/exp token
+    return null;
   }
 };
 
@@ -33,6 +28,9 @@ export function AuthProvider({ children }) {
   const startToken = getToken();
   const [token, _setToken] = useState(startToken);
   const [role , setRole ]  = useState(extractRole(startToken));
+
+  /* samengevoegd object */
+  const auth = token ? { token, role } : null;
 
   const setToken = (t) => {
     if (t) saveToken(t);
@@ -45,13 +43,11 @@ export function AuthProvider({ children }) {
   const logout = () => setToken(null);
 
   return (
-    <AuthCtx.Provider value={{ token, role, setToken, logout }}>
+    <AuthCtx.Provider value={{ auth, setToken, logout }}>
       {children}
     </AuthCtx.Provider>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Convenience hook                                                   */
-/* ------------------------------------------------------------------ */
+/* Convenience hook */
 export const useAuth = () => useContext(AuthCtx);

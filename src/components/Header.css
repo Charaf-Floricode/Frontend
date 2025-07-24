@@ -13,6 +13,7 @@
     align-items: center;
     background-color: var(--fc-surface);
     padding: 3rem 2rem;
+    
     color: rgb(0, 0, 0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     gap: .5rem;               /* kleine ruimte tussen logo & titel         */
@@ -55,3 +56,4 @@
 .logout-btn:hover   { background: var(--fc-primary-dark); }
 .logout-btn:active  { transform: scale(0.98); }
 .logout-btn:focus   { outline: 2px solid var(--fc-primary-light); outline-offset: 2px; }
+.logout-btn { margin-left: auto; }
