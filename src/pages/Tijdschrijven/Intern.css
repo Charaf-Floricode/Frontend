@@ -1,0 +1,123 @@
+
+.intern-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+details.acc-item {        
+  width: 100%;
+ max-width: 800px;
+}
+
+.intern-title {
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+}
+
+/* Grid met uitklappers */
+.intern-wrap .accordion {
+  display: grid;
+  gap: .9rem;
+}
+
+/* ── Card-basis (kopie van je Card.css, maar gescoped) ──────────────────── */
+.intern-wrap .card {
+  background: var(--fc-surface);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+  padding: 1.5rem; /* wordt overschreven bij accordion layout */
+}
+
+/* Accordion-card: eigen layout + accentkleur */
+.intern-wrap .acc-item.card {
+  padding: 0; /* summary/body bepalen hun eigen padding */
+  overflow: hidden;
+  position: relative;
+  border-left: 4px solid var(--tone, var(--fc-primary));
+  transition: box-shadow .2s ease, transform .05s ease, border-color .2s ease;
+}
+
+/* Kleurvarianten (status) */
+.intern-wrap .tone-groen  { --tone: #16a34a; }  /* green-600 */
+.intern-wrap .tone-oranje { --tone: #fb923c; }  /* orange-400 */
+.intern-wrap .tone-rood   { --tone: #dc2626; }  /* red-600 */
+
+/* Hover/active elevatie */
+.intern-wrap .acc-item.card:hover  { box-shadow: 0 6px 18px rgb(0 0 0 / .10); }
+.intern-wrap .acc-item.card:active { transform: translateY(1px); }
+
+/* Summary (kop) */
+.intern-wrap .acc-summary {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 14px 1fr auto 16px; /* dot | label | total | chevron */
+  align-items: center;
+  gap: .65rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.intern-wrap .acc-summary::-webkit-details-marker { display: none; } /* Safari */
+
+/* Open state nuance */
+.intern-wrap details[open].acc-item.card {
+  box-shadow: 0 8px 22px rgb(0 0 0 / .12);
+  border-left-color: var(--tone);
+}
+
+/* Chevron animatie */
+.intern-wrap .chev {
+  transform: rotate(-90deg);
+  transition: transform .2s ease;
+  opacity: .7;
+}
+.intern-wrap details[open] .chev { transform: rotate(0deg); }
+
+/* Body */
+.intern-wrap .acc-body {
+  padding: 0 1.25rem 1.1rem;
+}
+
+/* Status-dot */
+.intern-wrap .status-dot {
+  width: 10px; height: 10px; border-radius: 999px;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.05) inset;
+}
+.intern-wrap .status-dot.groen  { background: #16a34a; }
+.intern-wrap .status-dot.oranje { background: #fb923c; }
+.intern-wrap .status-dot.rood   { background: #dc2626; }
+
+/* Tekst in summary */
+.intern-wrap .acc-label { font-weight: 600; line-height: 1.2; }
+.intern-wrap .acc-total { font-variant-numeric: tabular-nums; opacity: .8; }
+
+/* Tabelstijl (compact, coherent met cards) */
+.intern-wrap .fc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9375rem;
+}
+.intern-wrap .fc-table thead tr { background: #f6f6f6; }
+.intern-wrap .fc-table th,
+.intern-wrap .fc-table td {
+  padding: .5rem .6rem;
+  border-bottom: 1px solid #eee;
+}
+.intern-wrap .fc-table .right { text-align: right; }
+
+/* Muted text */
+.intern-wrap .muted { color: var(--fc-muted); }
+
+/* Focus zichtbaarheid (toegankelijkheid) */
+.intern-wrap .acc-summary:focus { outline: none; }
+.intern-wrap .acc-summary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, .45) inset;
+  border-radius: 6px;
+}
+
+/* Responsief: small */
+@media (max-width: 480px) {
+  .intern-wrap { padding: .75rem; }
+  .intern-wrap .acc-summary { padding: .85rem 1rem; }
+}

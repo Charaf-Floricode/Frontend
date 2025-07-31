@@ -1,14 +1,140 @@
-.chart-shell {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 4.5rem;
-  color: #ffa1af;
+
+/* ──────────────────────────────────────────────────────────────────────────
+   omzet – volledige look & feel voor de omzet pagina (accordion-cards)
+   Alles gescoped onder .omzet-wrap, zodat het nergens anders “lekt”.
+   Vereist globale CSS-variabelen uit index.css (zoals --fc-surface).
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Container */
+.omzet-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-.chart-inner {
-  width: 80%;          /* centreren + ruimte links/rechts */
-  max-width: 1100px;
-  margin-right: 10%;
-  color: #ff6c88;
+.omzet-title {
+  margin: 0 0 1rem 0;
+  font-weight: 700;
 }
+
+/* Grid met uitklappers */
+.omzet-wrap .accordion {
+  display: grid;
+  gap: .9rem;
+}
+
+/* ── Card-basis (kopie van je Card.css, maar gescoped) ──────────────────── */
+.omzet-wrap .card {
+  background: var(--fc-surface);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+  padding: 1.5rem; /* wordt overschreven bij accordion layout */
+}
+
+/* Accordion-card: eigen layout + accentkleur */
+.omzet-wrap .acc-item.card {
+  padding: 0; /* summary/body bepalen hun eigen padding */
+  overflow: hidden;
+  position: relative;
+  border-left: 4px solid var(--tone, var(--fc-primary));
+  transition: box-shadow .2s ease, transform .05s ease, border-color .2s ease;
+}
+
+/* Kleurvarianten (status) */
+.omzet-wrap .tone-groen  { --tone: #16a34a; }  /* green-600 */
+.omzet-wrap .tone-oranje { --tone: #fb923c; }  /* orange-400 */
+.omzet-wrap .tone-rood   { --tone: #dc2626; }  /* red-600 */
+
+/* Hover/active elevatie */
+.omzet-wrap .acc-item.card:hover  { box-shadow: 0 6px 18px rgb(0 0 0 / .10); }
+.omzet-wrap .acc-item.card:active { transform: translateY(1px); }
+
+/* Summary (kop) */
+.omzet-wrap .acc-summary {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 14px 1fr auto 16px; /* dot | label | total | chevron */
+  align-items: center;
+  gap: .65rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.omzet-wrap .acc-summary::-webkit-details-marker { display: none; } /* Safari */
+
+/* Open state nuance */
+.omzet-wrap details[open].acc-item.card {
+  box-shadow: 0 8px 22px rgb(0 0 0 / .12);
+  border-left-color: var(--tone);
+}
+
+/* Chevron animatie */
+.omzet-wrap .chev {
+  transform: rotate(-90deg);
+  transition: transform .2s ease;
+  opacity: .7;
+}
+.omzet-wrap details[open] .chev { transform: rotate(0deg); }
+
+/* Body */
+.omzet-wrap .acc-body {
+  padding: 0 1.25rem 1.1rem;
+}
+
+/* Status-dot */
+.omzet-wrap .status-dot {
+  width: 10px; height: 10px; border-radius: 999px;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.05) inset;
+}
+.omzet-wrap .status-dot.groen  { background: #16a34a; }
+.omzet-wrap .status-dot.oranje { background: #fb923c; }
+.omzet-wrap .status-dot.rood   { background: #dc2626; }
+
+/* Tekst in summary */
+.omzet-wrap .acc-label { font-weight: 600; line-height: 1.2; }
+.omzet-wrap .acc-total { font-variant-numeric: tabular-nums; opacity: .8; }
+
+/* Tabelstijl (compact, coherent met cards) */
+.omzet-wrap .fc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9375rem;
+}
+.omzet-wrap .fc-table thead tr { background: #f6f6f6; }
+.omzet-wrap .fc-table th,
+.omzet-wrap .fc-table td {
+  padding: .5rem .6rem;
+  border-bottom: 1px solid #eee;
+}
+.omzet-wrap .fc-table .right { text-align: right; }
+
+/* Muted text */
+.omzet-wrap .muted { color: var(--fc-muted); }
+
+/* Focus zichtbaarheid (toegankelijkheid) */
+.omzet-wrap .acc-summary:focus { outline: none; }
+.omzet-wrap .acc-summary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, .45) inset;
+  border-radius: 6px;
+}
+
+/* Responsief: small */
+@media (max-width: 480px) {
+  .omzet-wrap { padding: .75rem; }
+  .omzet-wrap .acc-summary { padding: .85rem 1rem; }
+}
+
+details.acc-item {        
+  width: 100%;
+ max-width: 800px;
+}
+
+.chart-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+
+

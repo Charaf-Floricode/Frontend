@@ -102,6 +102,16 @@ export async function loginJwt({ username, password }) {
 
 export async function fetchInternStatus() {
   const res = await authFetch("intern/status");
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();           // { color, per_task, tasks }
+  if (!res.ok) {
+    const txt = await res.text().catch(() => "");
+    throw new Error(txt || `HTTP ${res.status}`);
+  }
+  const json = await res.json().catch(() => ({}));
+  return {
+    color: json.color ?? "groen",
+    per_task: json.per_task ?? {},
+    sick_hours: json.sick_hours ?? 0,
+    sick_pct: json.sick_pct ?? 0,
+    panels: Array.isArray(json.panels) ? json.panels : [],
+  };
 }

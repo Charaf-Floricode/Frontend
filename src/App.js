@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import './App.css';
 import './index.css';
 import Header from './components/Header';
@@ -18,7 +18,9 @@ import FinancienPage from "./pages/Financien";
 import InternPage from "./pages/Tijdschrijven/Intern";
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+    useEffect(() => {
+    document.body.classList.toggle('sidebar-open', sidebarOpen);
+  }, [sidebarOpen]);
   return (
     <AuthProvider>
       <div className="app-layout">
