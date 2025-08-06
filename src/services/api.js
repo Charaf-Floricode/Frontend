@@ -54,14 +54,23 @@ export async function bioCertificate() {
   return { blob, headers: res.headers };
 }
 
+export async function runRFH() {
+  const res = await fetch(`${API_BASE}bedrijflocatie/rfh/errors`, {
+    method: "POST",
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
 export async function downloadCoderingen() {
   const res = await fetch(
-    `${API_BASE}bedrijflocatie/rfh`,
+    `${API_BASE}bedrijflocatie/rfh/download`,
     { method: "POST" }
   );
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.blob();         // zip als blob
 }
+
 export async function runPlantion() {
   const res = await fetch(`${API_BASE}bedrijflocatie/plantion`, {
     method: "POST",
